@@ -40,6 +40,58 @@ class LoginView(APIView):
         token,created = Token.objects.get_or_create(user = user)
 
         return Response({"message":"login sucess","token":token.key},status=status.HTTP_200_OK)
+    
+
+
+    # JWT
+    # ======
+
+
+    #  def post(self,request):
+
+    #     user = request.user
+
+    #     refresh = RefreshToken.for_user(user) #usernmae password user_id
+        
+    #     return Response(
+    #         {
+    #             "message":"login success",
+    #             "access": str(refresh.access_token),
+    #             "refresh": str(refresh)
+    #         },
+    #         status=status.HTTP_200_OK
+    #     )
+# from rest_framework_simplejwt.tokens import RefreshToken
+# from rest_framework.generics import ListCreateAPIView,RetrieveUpdateDestroyAPIView
+# from rest_framework_simplejwt.authentication import JWTAuthentication
+# pip install djngofranework_simplejwt
+# settings---> rest_framework.authtoken,simplejwt
+
+# # class ProductListCreateView(ListCreateAPIView):
+
+#     queryset = ProductModel.objects.all()
+
+#     serializer_class = Productserializer
+
+#     permission_classes=[IsAuthenticated]
+
+#     authentication_classes = [JWTAuthentication]
+
+#     def perform_create(self,serializer):
+
+#         serializer.save(user = self.request.user)
+
+# class ProductretriveupdatedeleteView(RetrieveUpdateDestroyAPIView):
+
+#     serializer_class = Productserializer
+
+#     permission_classes =[IsAuthenticated]
+
+#     authentication_classes =[JWTAuthentication]
+
+#     def get_queryset(self):
+
+#         return ProductModel.objects.filter(user = self.request.user)
 
 
 class AddListTicket(APIView):
@@ -78,9 +130,9 @@ class RetriveUpdateDelete(APIView):
 
         id = kwargs.get('pk')
 
-        support = get_object_or_404(SupportTicketModel,id=id,user = request.user)
+        support = get_object_or_404(SupportTicketModel,id=id,user= request.user)
 
-        serializer = SupportTicketSerializer(support,many=False)
+        serializer = SupportTicketSerializer(support,many= False)
 
         return Response(serializer.data,status=status.HTTP_200_OK)
     
@@ -88,9 +140,9 @@ class RetriveUpdateDelete(APIView):
 
         id = kwargs.get('pk')
 
-        support = get_object_or_404(SupportTicketModel,id=id,user = request.user)
+        support = get_object_or_404(SupportTicketModel,id=id,user= request.user)
 
-        serializer = SupportTicketSerializer(support,data = request.data)
+        serializer = SupportTicketSerializer(support,data= request.data )
 
         if serializer.is_valid():
 
@@ -99,4 +151,17 @@ class RetriveUpdateDelete(APIView):
             return Response(serializer.data,status=status.HTTP_200_OK)
         
         return Response(serializer.errors,status=status.HTTP_400_BAD_REQUEST)
+    
+    def delete(self,request,**kwargs):
+
+        id = kwargs.get('pk')
+
+        support = get_object_or_404(SupportTicketModel,id=id)
+
+        support.delete()
+
+        return Response({"message":"deleted"},status=status.HTTP_200_OK)
+
+
+
 
