@@ -43,56 +43,6 @@ class LoginView(APIView):
     
 
 
-    # JWT
-    # ======
-
-
-    #  def post(self,request):
-
-    #     user = request.user
-
-    #     refresh = RefreshToken.for_user(user) #usernmae password user_id
-        
-    #     return Response(
-    #         {
-    #             "message":"login success",
-    #             "access": str(refresh.access_token),
-    #             "refresh": str(refresh)
-    #         },
-    #         status=status.HTTP_200_OK
-    #     )
-# from rest_framework_simplejwt.tokens import RefreshToken
-# from rest_framework.generics import ListCreateAPIView,RetrieveUpdateDestroyAPIView
-# from rest_framework_simplejwt.authentication import JWTAuthentication
-# pip install djngofranework_simplejwt
-# settings---> rest_framework.authtoken,simplejwt
-
-# # class ProductListCreateView(ListCreateAPIView):
-
-#     queryset = ProductModel.objects.all()
-
-#     serializer_class = Productserializer
-
-#     permission_classes=[IsAuthenticated]
-
-#     authentication_classes = [JWTAuthentication]
-
-#     def perform_create(self,serializer):
-
-#         serializer.save(user = self.request.user)
-
-# class ProductretriveupdatedeleteView(RetrieveUpdateDestroyAPIView):
-
-#     serializer_class = Productserializer
-
-#     permission_classes =[IsAuthenticated]
-
-#     authentication_classes =[JWTAuthentication]
-
-#     def get_queryset(self):
-
-#         return ProductModel.objects.filter(user = self.request.user)
-
 
 class AddListTicket(APIView):
 
