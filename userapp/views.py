@@ -109,6 +109,7 @@ class RetriveUpdateDelete(APIView):
         support = get_object_or_404(SupportTicketModel,id=id)
 
         support.delete()
+        
 
         return Response({"message":"deleted"},status=status.HTTP_200_OK)
 
